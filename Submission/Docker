@@ -1,0 +1,20 @@
+FROM pytorch/pytorch:1.10.0-cuda11.3-cudnn8-runtime
+
+RUN apk update && \
+    apk add --no-cache git wget && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools && \
+    rm -r /root/.cache
+
+RUN pip install -q -U bitsandbytes && \
+    pip install -q -U git+https://github.com/huggingface/transformers.git && \
+    pip install -q -U git+https://github.com/huggingface/peft.git && \
+    pip install -q -U git+https://github.com/huggingface/accelerate.git && \
+    pip install datasets scipy protobuf py7zr peft bitsandbytes fire torch_tb_profiler ipywidgets
+
+WORKDIR /workspace
+COPY train.py ./
+
+# Set default command
+CMD ["python", "train.py"]
