@@ -151,7 +151,7 @@ def main():
 
     api = HfApi()
     api.upload_folder(
-        folder_path="mistral-mistral-finetune/checkpoint-400",
+        folder_path="mistral-mistral-finetune/checkpoint-300",
         repo_id="shivank21/mistral-7b-tuned",
         repo_type='model',
     )
